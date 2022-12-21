@@ -6,17 +6,21 @@ import javax.swing.*;
 
 public class GameMain extends JPanel implements MouseListener{
 	//Constants for game 
+	
 	// number of ROWS by COLS cell constants 
 	public static final int ROWS = 3;     
 	public static final int COLS = 3;  
 	public static final String TITLE = "Tic Tac Toe";
 
 	//constants for dimensions used for drawing
+	
 	//cell width and height
 	public static final int CELL_SIZE = 100;
+	
 	//drawing canvas
 	public static final int CANVAS_WIDTH = CELL_SIZE * COLS;
 	public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
+	
 	//Noughts and Crosses are displayed inside a cell, with padding from border
 	public static final int CELL_PADDING = CELL_SIZE / 6;    
 	public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2;    
@@ -32,6 +36,7 @@ public class GameMain extends JPanel implements MouseListener{
 	
 	// the current player
 	private Player currentPlayer; 
+	
 	// for displaying game status message
 	private JLabel statusBar;       
 	
@@ -40,7 +45,7 @@ public class GameMain extends JPanel implements MouseListener{
 	public GameMain() {   
 		
 		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+		addMouseListener(this);
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -57,9 +62,10 @@ public class GameMain extends JPanel implements MouseListener{
 		
 		
 		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-
+		board = new Board();
 		
 		//TODO: call the method to initialise the game board
+		initGame();
 
 	}
 	
@@ -71,11 +77,11 @@ public class GameMain extends JPanel implements MouseListener{
 				JFrame frame = new JFrame(TITLE);
 				
 				//TODO: create the new GameMain panel and add it to the frame
-						
-				
+				GameMain newGame = new GameMain();		
+				frame.add(newGame);
 				
 				//TODO: set the default close operation of the frame to exit_on_close
-		            
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
 				
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
@@ -209,5 +215,14 @@ public class GameMain extends JPanel implements MouseListener{
 		// Auto-generated, event not used
 		
 	}
+	
+	enum GameState {
+		Playing,
+		Draw,
+		Cross_won,
+		Nought_won
+		
+	}
+
 
 }
